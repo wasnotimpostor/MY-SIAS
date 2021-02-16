@@ -7,7 +7,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import sistem.akademik.sekolah.message.request.LoginForm;
@@ -42,11 +44,23 @@ public class AuthRestAPI {
     @Autowired
     BiodataRepo biodataRepo;
 
-    // @Autowired
-    // JadwalKelasRepo jadwalKelasRepo;
+    @Autowired
+    KelasRepo kelasRepo;
 
-    // @Autowired
-    // RuangRepo ruangRepo;
+    @Autowired
+    MateriRepo materiRepo;
+
+    @Autowired
+    HariRepo hariRepo;
+
+    @Autowired
+    JurusanRepo jurusanRepo;
+
+     @Autowired
+     JadwalMuridRepo jadwalMuridRepo;
+
+     @Autowired
+     RuangRepo ruangRepo;
 
     @Autowired
     PasswordEncoder encoder;
@@ -65,7 +79,9 @@ public class AuthRestAPI {
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", 
+            produces = "application/json",
+            method = RequestMethod.GET)
     @ResponseBody
     public Object currentUserName(Authentication authentication) {
         return authentication.getPrincipal();
@@ -130,53 +146,104 @@ public class AuthRestAPI {
         });
     }
 
-    // @RequestMapping(value = "/jadwalKelas/{id}",
-    //         produces = "application/json",
-    //         method= RequestMethod.PUT)
-    // public JadwalKelas replaceJadwal(@RequestBody JadwalKelas newJadwalKelas, @PathVariable Long id) {
-    //     return jadwalKelasRepo.findById(id).map(jadwalKelas -> {
-    //         jadwalKelas.setId(newJadwalKelas.getId());
-    //         jadwalKelas.setId_kelas(newJadwalKelas.getId_kelas());
-    //         jadwalKelas.setId_hari(newJadwalKelas.getId_hari());
-    //         jadwalKelas.setTanggal(newJadwalKelas.getTanggal());
-    //         jadwalKelas.setJam(newJadwalKelas.getJam());
-    //         jadwalKelas.setId_mapel(newJadwalKelas.getId_mapel());
-    //         jadwalKelas.setId_ruang(newJadwalKelas.getId_ruang());
-    //         jadwalKelas.setId_guru(newJadwalKelas.getId_guru());
-    //         return jadwalKelasRepo.save(jadwalKelas);
-    //     }) .orElseGet(() -> {
-    //         newJadwalKelas.setId(id);
-    //         return jadwalKelasRepo.save(newJadwalKelas);
-    //     });
-    // }
+    @RequestMapping(value = "/kelas/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Kelas replaceKelas(@RequestBody Kelas newKelas, @PathVariable Long id) {
+        return kelasRepo.findById(id).map(kelas -> {
+            kelas.setKode_kelas(newKelas.getKode_kelas());
+            kelas.setId_user(newKelas.getId_user());
+            return kelasRepo.save(kelas);
+        }) .orElseGet(() -> {
+            newKelas.setId(id);
+            return kelasRepo.save(newKelas);
+        });
+    }
 
-    // @RequestMapping(value = "/user/{id}",
-    //         produces = "application/json",
-    //         method= RequestMethod.PUT)
-    // public User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
-    //     return userRepo.findById(id).map(user -> {
-    //         user.setId(newUser.getId());
-    //         user.setName(newUser.getName());
-    //         user.setUsername(newUser.getUsername());
-    //         user.setPassword(newUser.getPassword());
-    //         return userRepo.save(user);
-    //     }) .orElseGet(() -> {
-    //         newUser.setId(id);
-    //         return userRepo.save(newUser);
-    //     });
-    // }
+     @RequestMapping(value = "/jadwalmurid/{id}",
+             produces = "application/json",
+             method= RequestMethod.PUT)
+     public JadwalMurid replaceJadwal(@RequestBody JadwalMurid newJadwalMurid, @PathVariable Long id) {
+         return jadwalMuridRepo.findById(id).map(jadwalMurid -> {
+             jadwalMurid.setId_kelas(newJadwalMurid.getId_kelas());
+             jadwalMurid.setId_hari(newJadwalMurid.getId_hari());
+             jadwalMurid.setTanggal(newJadwalMurid.getTanggal());
+             jadwalMurid.setJam(newJadwalMurid.getJam());
+             jadwalMurid.setId_matpel(newJadwalMurid.getId_matpel());
+             jadwalMurid.setId_ruang(newJadwalMurid.getId_ruang());
+             jadwalMurid.setId_guru(newJadwalMurid.getId_guru());
+             return jadwalMuridRepo.save(jadwalMurid);
+         }) .orElseGet(() -> {
+             newJadwalMurid.setId(id);
+             return jadwalMuridRepo.save(newJadwalMurid);
+         });
+     }
 
-    // @RequestMapping(value = "/ruang/{id}",
-    //         produces = "application/json",
-    //         method= RequestMethod.PUT)
-    // public Ruang replaceRuang(@RequestBody Ruang newRuang, @PathVariable Long id) {
-    //     return ruangRepo.findById(id).map(ruang -> {
-    //         ruang.setId(newRuang.getId());
-    //         ruang.setRuang(newRuang.getRuang());
-    //         return ruangRepo.save(ruang);
-    //     }) .orElseGet(() -> {
-    //         newRuang.setId(id);
-    //         return ruangRepo.save(newRuang);
-    //     });
-    // }
+     @RequestMapping(value = "/user/{id}",
+             produces = "application/json",
+             method= RequestMethod.PUT)
+     public User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
+         return userRepo.findById(id).map(user -> {
+             user.setId_bio(newUser.getId_bio());
+             user.setUsername(newUser.getUsername());
+             user.setPassword(newUser.getPassword());
+             return userRepo.save(user);
+         }) .orElseGet(() -> {
+             newUser.setId(id);
+             return userRepo.save(newUser);
+         });
+     }
+
+     @RequestMapping(value = "/ruang/{id}",
+             produces = "application/json",
+             method= RequestMethod.PUT)
+     public Ruang replaceRuang(@RequestBody Ruang newRuang, @PathVariable Long id) {
+         return ruangRepo.findById(id).map(ruang -> {
+             ruang.setName(newRuang.getName());
+             return ruangRepo.save(ruang);
+         }) .orElseGet(() -> {
+             newRuang.setId(id);
+             return ruangRepo.save(newRuang);
+         });
+     }
+
+    @RequestMapping(value = "/materi/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Materi replaceMateri(@RequestBody Materi newMateri, @PathVariable Long id) {
+        return materiRepo.findById(id).map(materi -> {
+            materi.setDeskripsi(newMateri.getDeskripsi());
+            materi.setId_matpel(newMateri.getId_matpel());
+            return materiRepo.save(materi);
+        }) .orElseGet(() -> {
+            newMateri.setId(id);
+            return materiRepo.save(newMateri);
+        });
+    }
+
+    @RequestMapping(value = "/hari/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Hari replaceHari(@RequestBody Hari newHari, @PathVariable Long id) {
+        return hariRepo.findById(id).map(hari -> {
+            hari.setName(newHari.getName());
+            return hariRepo.save(hari);
+        }) .orElseGet(() -> {
+            newHari.setId(id);
+            return hariRepo.save(newHari);
+        });
+    }
+
+    @RequestMapping(value = "/jurusan/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Jurusan replaceJurusan(@RequestBody Jurusan newJurusan, @PathVariable Long id) {
+        return jurusanRepo.findById(id).map(jurusan -> {
+            jurusan.setName(newJurusan.getName());
+            return jurusanRepo.save(jurusan);
+        }) .orElseGet(() -> {
+            newJurusan.setId(id);
+            return jurusanRepo.save(newJurusan);
+        });
+    }
 }
