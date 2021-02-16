@@ -18,7 +18,7 @@ public class Kelas {
 
     private String kode_kelas;
 
-    private String id_user;
+    private Long id_user;
 
     public Long getId() {
         return id;
@@ -36,11 +36,11 @@ public class Kelas {
         this.kode_kelas = kode_kelas;
     }
 
-    public String getId_user() {
+    public Long getId_user() {
         return id_user;
     }
 
-    public void setId_user(String id_user) {
+    public void setId_user(Long id_user) {
         this.id_user = id_user;
     }
 
