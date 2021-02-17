@@ -4,10 +4,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class RegisterForm {
-    @NotBlank
-    private String id_bio;
 
-    @NotBlank
+    private Long id_bio;
+
     private String username;
 
     private Set<String> role;
@@ -15,11 +14,11 @@ public class RegisterForm {
     @NotBlank
     private String password;
 
-    public String getId_bio() {
+    public Long getId_bio() {
         return id_bio;
     }
 
-    public void setId_bio(String id_bio) {
+    public void setId_bio(Long id_bio) {
         this.id_bio = id_bio;
     }
 
