@@ -10,7 +10,7 @@ public class JadwalMurid {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long id_kelas;
+    private String kelas;
 
     private Long id_hari;
 
@@ -32,12 +32,12 @@ public class JadwalMurid {
         this.id = id;
     }
 
-    public Long getId_kelas() {
-        return id_kelas;
+    public String getKelas() {
+        return kelas;
     }
 
-    public void setId_kelas(Long id_kelas) {
-        this.id_kelas = id_kelas;
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
     }
 
     public Long getId_hari() {
@@ -124,17 +124,17 @@ public class JadwalMurid {
         this.matPel = matPel;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_kelas", referencedColumnName = "id", insertable = false, updatable = false)
-    private Kelas kelas;
-
-    public Kelas getKelas() {
-        return kelas;
-    }
-
-    public void setKelas(Kelas kelas) {
-        this.kelas = kelas;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "id_kelas", referencedColumnName = "id", insertable = false, updatable = false)
+//    private Kelas kelas;
+//
+//    public Kelas getKelas() {
+//        return kelas;
+//    }
+//
+//    public void setKelas(Kelas kelas) {
+//        this.kelas = kelas;
+//    }
 
     @ManyToOne
     @JoinColumn(name = "id_hari", referencedColumnName = "id", insertable = false, updatable = false)
