@@ -1,11 +1,6 @@
 package sistem.akademik.sekolah.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "biodata", uniqueConstraints = {
@@ -18,6 +13,8 @@ public class Biodata {
     private Long id;
 
     private String no_identitas;
+
+    private Long id_kelas;
 
     private String name;
 
@@ -49,6 +46,14 @@ public class Biodata {
 
     public void setNo_identitas(String no_identitas) {
         this.no_identitas = no_identitas;
+    }
+
+    public Long getId_kelas() {
+        return id_kelas;
+    }
+
+    public void setId_kelas(Long id_kelas) {
+        this.id_kelas = id_kelas;
     }
 
     public String getName() {
@@ -113,5 +118,17 @@ public class Biodata {
 
     public void setNilai(String nilai) {
         this.nilai = nilai;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_kelas", referencedColumnName = "id", insertable = false, updatable = false)
+    private Kelas kelas;
+
+    public Kelas getKelas() {
+        return kelas;
+    }
+
+    public void setKelas(Kelas kelas) {
+        this.kelas = kelas;
     }
 }
