@@ -12,7 +12,7 @@ public class MatPel {
 
     private String name;
 
-    private Long id_jurusan;
+    private Long id_materi;
 
     public Long getId() {
         return id;
@@ -30,23 +30,23 @@ public class MatPel {
         this.name = name;
     }
 
-    public Long getId_jurusan() {
-        return id_jurusan;
+    public Long getId_materi() {
+        return id_materi;
     }
 
-    public void setId_jurusan(Long id_jurusan) {
-        this.id_jurusan = id_jurusan;
+    public void setId_materi(Long id_materi) {
+        this.id_materi = id_materi;
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_jurusan", referencedColumnName = "id", insertable = false, updatable = false)
-    private Jurusan jurusan;
+    @JoinColumn(name = "id_materi", referencedColumnName = "id", insertable = false, updatable = false)
+    private Materi materi;
 
-    public Jurusan getJurusan() {
-        return jurusan;
+    public Materi getMateri() {
+        return materi;
     }
 
-    public void setJurusan(Jurusan jurusan) {
-        this.jurusan = jurusan;
+    public void setMateri(Materi materi) {
+        this.materi = materi;
     }
 }
