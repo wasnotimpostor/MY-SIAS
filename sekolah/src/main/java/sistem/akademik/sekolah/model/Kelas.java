@@ -1,12 +1,6 @@
 package sistem.akademik.sekolah.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "kelas")
@@ -19,6 +13,8 @@ public class Kelas {
     private String kode_kelas;
 
     private Long id_user;
+
+    private Long id_jadwal;
 
     public Long getId() {
         return id;
@@ -44,6 +40,14 @@ public class Kelas {
         this.id_user = id_user;
     }
 
+    public Long getId_jadwal() {
+        return id_jadwal;
+    }
+
+    public void setId_jadwal(Long id_jadwal) {
+        this.id_jadwal = id_jadwal;
+    }
+
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id", insertable = false, updatable = false)
     private Biodata biodata;
@@ -54,5 +58,17 @@ public class Kelas {
 
     public void setBiodata(Biodata biodata) {
         this.biodata = biodata;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "id_jadwal", referencedColumnName = "id", insertable = false, updatable = false)
+    private JadwalMurid jadwalMurid;
+
+    public JadwalMurid getJadwalMurid() {
+        return jadwalMurid;
+    }
+
+    public void setJadwalMurid(JadwalMurid jadwalMurid) {
+        this.jadwalMurid = jadwalMurid;
     }
 }
