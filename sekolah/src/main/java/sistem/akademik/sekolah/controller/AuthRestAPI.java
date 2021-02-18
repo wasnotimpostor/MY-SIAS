@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import sistem.akademik.sekolah.message.request.LoginForm;
@@ -19,11 +16,8 @@ import sistem.akademik.sekolah.model.*;
 import sistem.akademik.sekolah.repository.*;
 import sistem.akademik.sekolah.security.jwt.JwtProvider;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import java.security.Principal;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
