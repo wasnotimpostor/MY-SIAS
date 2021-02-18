@@ -16,7 +16,7 @@ public class UserPrinciple implements UserDetails {
 
     private Long id;
 
-    private String name;
+    private Long id_bio;
 
     private String username;
 
@@ -25,11 +25,11 @@ public class UserPrinciple implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String name,
+    public UserPrinciple(Long id, Long id_bio,
                          String username, String password,
                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+        this.id_bio = id_bio;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
@@ -52,8 +52,8 @@ public class UserPrinciple implements UserDetails {
         return id;
     }
 
-    public String getId_bio() {
-        return name;
+    public Long getId_bio() {
+        return id_bio;
     }
 
     @Override
