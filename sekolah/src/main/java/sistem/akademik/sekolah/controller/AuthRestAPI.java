@@ -51,6 +51,9 @@ public class AuthRestAPI {
     MateriRepo materiRepo;
 
     @Autowired
+    MatpelRepo matpelRepo;
+
+    @Autowired
     HariRepo hariRepo;
 
     @Autowired
@@ -131,6 +134,7 @@ public class AuthRestAPI {
     public Biodata replaceBiodata(@RequestBody Biodata newBiodata, @PathVariable Long id) {
         return biodataRepo.findById(id).map(biodata -> {
             biodata.setNo_identitas(newBiodata.getNo_identitas());
+            biodata.setId_kelas(newBiodata.getId_kelas());
             biodata.setName(newBiodata.getName());
             biodata.setEmail(newBiodata.getEmail());
             biodata.setGender(newBiodata.getGender());
@@ -153,6 +157,7 @@ public class AuthRestAPI {
         return kelasRepo.findById(id).map(kelas -> {
             kelas.setKode_kelas(newKelas.getKode_kelas());
             kelas.setId_user(newKelas.getId_user());
+            kelas.setId_jadwal(newKelas.getId_jadwal());
             return kelasRepo.save(kelas);
         }) .orElseGet(() -> {
             newKelas.setId(id);
@@ -165,7 +170,7 @@ public class AuthRestAPI {
              method= RequestMethod.PUT)
      public JadwalMurid replaceJadwal(@RequestBody JadwalMurid newJadwalMurid, @PathVariable Long id) {
          return jadwalMuridRepo.findById(id).map(jadwalMurid -> {
-             jadwalMurid.setId_kelas(newJadwalMurid.getId_kelas());
+             jadwalMurid.setKelas(newJadwalMurid.getKelas());
              jadwalMurid.setId_hari(newJadwalMurid.getId_hari());
              jadwalMurid.setTanggal(newJadwalMurid.getTanggal());
              jadwalMurid.setJam(newJadwalMurid.getJam());
@@ -213,7 +218,6 @@ public class AuthRestAPI {
     public Materi replaceMateri(@RequestBody Materi newMateri, @PathVariable Long id) {
         return materiRepo.findById(id).map(materi -> {
             materi.setDeskripsi(newMateri.getDeskripsi());
-            materi.setId_matpel(newMateri.getId_matpel());
             return materiRepo.save(materi);
         }) .orElseGet(() -> {
             newMateri.setId(id);
@@ -240,10 +244,25 @@ public class AuthRestAPI {
     public Jurusan replaceJurusan(@RequestBody Jurusan newJurusan, @PathVariable Long id) {
         return jurusanRepo.findById(id).map(jurusan -> {
             jurusan.setName(newJurusan.getName());
+            jurusan.setId_matpel(newJurusan.getId_matpel());
             return jurusanRepo.save(jurusan);
         }) .orElseGet(() -> {
             newJurusan.setId(id);
             return jurusanRepo.save(newJurusan);
+        });
+    }
+
+    @RequestMapping(value = "/matpel/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public MatPel replaceMatpel(@RequestBody MatPel newMatpel, @PathVariable Long id) {
+        return matpelRepo.findById(id).map(matpel -> {
+            matpel.setName(newMatpel.getName());
+            matpel.setId_materi(newMatpel.getId_materi());
+            return matpelRepo.save(matpel);
+        }) .orElseGet(() -> {
+            newMatpel.setId(id);
+            return matpelRepo.save(newMatpel);
         });
     }
 }
