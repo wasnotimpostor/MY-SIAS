@@ -12,8 +12,6 @@ public class MatPel {
 
     private String name;
 
-    private Long id_materi;
-
     public Long getId() {
         return id;
     }
@@ -28,25 +26,5 @@ public class MatPel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getId_materi() {
-        return id_materi;
-    }
-
-    public void setId_materi(Long id_materi) {
-        this.id_materi = id_materi;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "id_materi", referencedColumnName = "id", insertable = false, updatable = false)
-    private Materi materi;
-
-    public Materi getMateri() {
-        return materi;
-    }
-
-    public void setMateri(Materi materi) {
-        this.materi = materi;
     }
 }
