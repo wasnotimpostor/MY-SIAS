@@ -252,7 +252,6 @@ public class AuthRestAPI {
     public MatPel replaceMatpel(@RequestBody MatPel newMatpel, @PathVariable Long id) {
         return matpelRepo.findById(id).map(matpel -> {
             matpel.setName(newMatpel.getName());
-            matpel.setId_materi(newMatpel.getId_materi());
             return matpelRepo.save(matpel);
         }) .orElseGet(() -> {
             newMatpel.setId(id);
