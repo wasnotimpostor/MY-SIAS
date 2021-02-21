@@ -36,12 +36,12 @@ public class MatpelMateriController {
         return service.addFusion(matpelMateri);
     }
 
-//    @RequestMapping(value = "/kurikulum",
-//            produces = "application/json",
-//            method= RequestMethod.DELETE)
-//    public MatpelMateri deleteAllFusion(MatpelMateri matpelMateri) {
-//        return service.deleteAllFusion(matpelMateri);
-//    }
+    @RequestMapping(value = "/kurikulum",
+            produces = "application/json",
+            method= RequestMethod.DELETE)
+    public MatpelMateri deleteAllFusion(MatpelMateri matpelMateri) {
+        return service.deleteAllFusion(matpelMateri);
+    }
 
     @RequestMapping(value = "/kurikulum/{id}",
             produces = "application/json",
