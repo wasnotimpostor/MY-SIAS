@@ -33,6 +33,9 @@ public class AuthRestAPI {
     UserRepo userRepo;
 
     @Autowired
+    MuridRepo muridRepo;
+
+    @Autowired
     RoleRepo roleRepo;
 
     @Autowired
@@ -257,6 +260,19 @@ public class AuthRestAPI {
         }) .orElseGet(() -> {
             newMatpelMateri.setId(id);
             return matpelMateriRepo.save(newMatpelMateri);
+        });
+    }
+
+    @RequestMapping(value = "/murid/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Murid replaceMurid(@RequestBody Murid newMurid, @PathVariable Long id) {
+        return muridRepo.findById(id).map(murid -> {
+            murid.setUser_id(newMurid.getUser_id());
+            return muridRepo.save(murid);
+        }) .orElseGet(() -> {
+            newMurid.setId(id);
+            return muridRepo.save(newMurid);
         });
     }
 }
