@@ -12,7 +12,7 @@ public class MatpelMateri {
 
     private Long id_matpel;
 
-    private Long id_materi;
+    private String materi;
 
     public Long getId() {
         return id;
@@ -30,12 +30,12 @@ public class MatpelMateri {
         this.id_matpel = id_matpel;
     }
 
-    public Long getId_materi() {
-        return id_materi;
+    public String getMateri() {
+        return materi;
     }
 
-    public void setId_materi(Long id_materi) {
-        this.id_materi = id_materi;
+    public void setMateri(String materi) {
+        this.materi = materi;
     }
 
     @ManyToOne
@@ -48,17 +48,5 @@ public class MatpelMateri {
 
     public void setMatPel(MatPel matPel) {
         this.matPel = matPel;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "id_materi", referencedColumnName = "id", insertable = false, updatable = false)
-    private Materi materi;
-
-    public Materi getMateri() {
-        return materi;
-    }
-
-    public void setMateri(Materi materi) {
-        this.materi = materi;
     }
 }
