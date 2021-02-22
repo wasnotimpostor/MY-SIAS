@@ -42,7 +42,7 @@ public class AuthRestAPI {
     KelasRepo kelasRepo;
 
     @Autowired
-    MateriRepo materiRepo;
+    MatpelMateriRepo matpelMateriRepo;
 
     @Autowired
     MatpelRepo matpelRepo;
@@ -206,19 +206,6 @@ public class AuthRestAPI {
          });
      }
 
-    @RequestMapping(value = "/materi/{id}",
-            produces = "application/json",
-            method= RequestMethod.PUT)
-    public Materi replaceMateri(@RequestBody Materi newMateri, @PathVariable Long id) {
-        return materiRepo.findById(id).map(materi -> {
-            materi.setDeskripsi(newMateri.getDeskripsi());
-            return materiRepo.save(materi);
-        }) .orElseGet(() -> {
-            newMateri.setId(id);
-            return materiRepo.save(newMateri);
-        });
-    }
-
     @RequestMapping(value = "/hari/{id}",
             produces = "application/json",
             method= RequestMethod.PUT)
@@ -256,6 +243,20 @@ public class AuthRestAPI {
         }) .orElseGet(() -> {
             newMatpel.setId(id);
             return matpelRepo.save(newMatpel);
+        });
+    }
+
+    @RequestMapping(value = "/kurikulum/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public MatpelMateri replaceMatpelMateri(@RequestBody MatpelMateri newMatpelMateri, @PathVariable Long id) {
+        return matpelMateriRepo.findById(id).map(matpelMateri -> {
+            matpelMateri.setId_matpel(newMatpelMateri.getId_matpel());
+            matpelMateri.setMateri(newMatpelMateri.getMateri());
+            return matpelMateriRepo.save(matpelMateri);
+        }) .orElseGet(() -> {
+            newMatpelMateri.setId(id);
+            return matpelMateriRepo.save(newMatpelMateri);
         });
     }
 }
