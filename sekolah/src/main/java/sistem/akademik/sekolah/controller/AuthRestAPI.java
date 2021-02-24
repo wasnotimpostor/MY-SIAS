@@ -15,6 +15,7 @@ import sistem.akademik.sekolah.message.response.JwtResponse;
 import sistem.akademik.sekolah.model.*;
 import sistem.akademik.sekolah.repository.*;
 import sistem.akademik.sekolah.security.jwt.JwtProvider;
+import sistem.akademik.sekolah.security.service.GuruService;
 
 import javax.validation.Valid;
 
@@ -34,6 +35,9 @@ public class AuthRestAPI {
 
     @Autowired
     MuridRepo muridRepo;
+
+    @Autowired
+    GuruRepo guruRepo;
 
     @Autowired
     RoleRepo roleRepo;
@@ -131,6 +135,7 @@ public class AuthRestAPI {
     public Biodata replaceBiodata(@RequestBody Biodata newBiodata, @PathVariable Long id) {
         return biodataRepo.findById(id).map(biodata -> {
             biodata.setNo_identitas(newBiodata.getNo_identitas());
+            biodata.setAngkatan(newBiodata.getAngkatan());
             biodata.setId_kelas(newBiodata.getId_kelas());
             biodata.setName(newBiodata.getName());
             biodata.setEmail(newBiodata.getEmail());
@@ -273,6 +278,19 @@ public class AuthRestAPI {
         }) .orElseGet(() -> {
             newMurid.setId(id);
             return muridRepo.save(newMurid);
+        });
+    }
+
+    @RequestMapping(value = "/guru/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public Guru replaceGuru(@RequestBody Guru newGuru, @PathVariable Long id) {
+        return guruRepo.findById(id).map(guru -> {
+            guru.setUser_id(newGuru.getUser_id());
+            return guruRepo.save(guru);
+        }) .orElseGet(() -> {
+            newGuru.setId(id);
+            return guruRepo.save(newGuru);
         });
     }
 }
