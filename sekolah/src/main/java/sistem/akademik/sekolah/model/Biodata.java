@@ -14,6 +14,8 @@ public class Biodata {
 
     private String no_identitas;
 
+    private String angkatan;
+
     private Long id_kelas;
 
     private String name;
@@ -46,6 +48,14 @@ public class Biodata {
 
     public void setNo_identitas(String no_identitas) {
         this.no_identitas = no_identitas;
+    }
+
+    public String getAngkatan() {
+        return angkatan;
+    }
+
+    public void setAngkatan(String angkatan) {
+        this.angkatan = angkatan;
     }
 
     public Long getId_kelas() {
