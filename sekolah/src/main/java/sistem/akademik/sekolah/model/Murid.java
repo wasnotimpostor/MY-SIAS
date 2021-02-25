@@ -12,6 +12,8 @@ public class Murid {
 
     private Long user_id;
 
+    private Long kelas_id;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +30,14 @@ public class Murid {
         this.user_id = user_id;
     }
 
+    public Long getKelas_id() {
+        return kelas_id;
+    }
+
+    public void setKelas_id(Long kelas_id) {
+        this.kelas_id = kelas_id;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
@@ -38,5 +48,17 @@ public class Murid {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "kelas_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Kelas kelas;
+
+    public Kelas getKelas() {
+        return kelas;
+    }
+
+    public void setKelas(Kelas kelas) {
+        this.kelas = kelas;
     }
 }
