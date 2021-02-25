@@ -29,7 +29,7 @@ public class GuruController {
         return guruService.getGuru(id);
     }
 
-    @RequestMapping(value = "/guru",
+    @RequestMapping(value = "/guru/add",
             produces = "application/json",
             method= RequestMethod.POST)
     public Guru addGuru(@RequestBody Guru guru) {
