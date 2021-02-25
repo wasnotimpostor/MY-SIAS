@@ -1,6 +1,10 @@
 # MY-SIAS
 FUCEK
 
+<p align="center">
+  <img src="https://github.com/wasnotimpostor/MY-SIAS/blob/master/entityManagerFactory(EntityManagerFactoryBuilder).png"/>
+</p>
+
 ### Hari Controller
 ```
 [GET ALL] /sekolah/hari
