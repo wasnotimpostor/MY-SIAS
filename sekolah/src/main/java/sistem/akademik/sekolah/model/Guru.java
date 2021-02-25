@@ -36,7 +36,7 @@ public class Guru {
         return user;
     }
 
-    public void setUser_id(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }
