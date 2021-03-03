@@ -32,6 +32,7 @@ public class MuridService {
 
     public Murid deleteMurid(Long id) {
         Murid murid = muridRepo.findById(id).orElse(null);
+        muridRepo.deleteById(id);
         return murid;
     }
 
