@@ -64,6 +64,9 @@ public class AuthRestAPI {
      JadwalMuridRepo jadwalMuridRepo;
 
      @Autowired
+     JadwalHariRepo jadwalHariRepo;
+
+     @Autowired
      RuangRepo ruangRepo;
 
     @Autowired
@@ -291,6 +294,20 @@ public class AuthRestAPI {
         }) .orElseGet(() -> {
             newGuru.setId(id);
             return guruRepo.save(newGuru);
+        });
+    }
+
+    @RequestMapping(value = "/jadwalhari/{id}",
+            produces = "application/json",
+            method= RequestMethod.PUT)
+    public JadwalHari replaceJadwalHari(@RequestBody JadwalHari newJadwalHari, @PathVariable Long id) {
+        return jadwalHariRepo.findById(id).map(jadwalHari -> {
+            jadwalHari.setId_hari(newJadwalHari.getId_hari());
+            jadwalHari.setId_jadwal(newJadwalHari.getId_jadwal());
+            return jadwalHariRepo.save(jadwalHari);
+        }) .orElseGet(() -> {
+            newJadwalHari.setId(id);
+            return jadwalHariRepo.save(newJadwalHari);
         });
     }
 }
